@@ -13,7 +13,7 @@ void print_list(const adjacency_list_t& list) {
 }
 
 int main() {
-    const std::string FILENAME = "export.txt";
+    const std::string FILENAME = "edges.txt";
     adjacency_list_t list = parse_file(FILENAME);
 
     Graph graph(list);

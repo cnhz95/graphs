@@ -23,14 +23,14 @@ public:
     size_t size() const;
 
 private:
-    const int NUMBER_OF_NODES = 48;
     const int DEFAULT_VALUE = -1;
+    const int NUMBER_OF_NODES = 48;
     const double INF = std::numeric_limits<double>::max();
 
     adjacency_list_t list;
     std::vector<std::vector<std::pair<double, std::string>>> matrix;
-    std::vector<double> distance; // Keeps the minimum distance to every node from the start node
-    std::vector<int> predecessor; // Keeps track of the node that lead to the current node
+    std::vector<double> distance; // Keeps the minimum distance from the start node to every other node
+    std::vector<int> predecessor; // Keeps track of the node that led to the current node
     std::vector<bool> visited;
 
     std::vector<int> get_neighbours(int node) const;

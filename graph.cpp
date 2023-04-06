@@ -65,12 +65,12 @@ std::vector<int> Graph::get_neighbours(int node) const {
 
 // Calculates the shortest path between two nodes in a graph with non-negative edge weights
 double Graph::dijkstra(int start_node, int end_node) {
-    distance.assign(NUMBER_OF_NODES, INF); // Sets the distance to all nodes to infinity
+    distance.assign(NUMBER_OF_NODES, INF);
     predecessor.assign(NUMBER_OF_NODES, DEFAULT_VALUE);
     visited.assign(NUMBER_OF_NODES, 0);
     distance[start_node] = 0.0;
     std::priority_queue<node_t, std::vector<node_t>, std::greater<node_t>> pq; // min heap
-    pq.push({0.0, start_node});
+    pq.emplace(0.0, start_node);
     while (!pq.empty()) {
         auto curr = pq.top(); // Chooses the current most promising node
         pq.pop();
@@ -82,8 +82,8 @@ double Graph::dijkstra(int start_node, int end_node) {
             double new_distance = distance[curr.second] + weight; // Distance from current node to neighbour
             if (new_distance < distance[neighbour]) { // Shorter distance found
                 predecessor[neighbour] = curr.second; // Current node has shorter distance to the neighbour
-                distance[neighbour] = new_distance; // Update to the new better distance (relaxation)
-                pq.push({distance[neighbour], neighbour});
+                distance[neighbour] = new_distance; // Update to the new better distance
+                pq.emplace(distance[neighbour], neighbour);
             }
         }
         if (curr.second == end_node) { // Minimum distance has been found
@@ -97,7 +97,7 @@ std::vector<node_t> Graph::dijkstra_neighbours(const node_t& node) const {
     std::vector<node_t> neighbours;
     for (size_t index = 0; index < matrix.size(); index++) {
         if (matrix[node.second][index].first != DEFAULT_VALUE && !visited[index]) {
-            neighbours.push_back({matrix[node.second][index].first, index});
+            neighbours.emplace_back(matrix[node.second][index].first, index);
         }
     }
     return neighbours;
